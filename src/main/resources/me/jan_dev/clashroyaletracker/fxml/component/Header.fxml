@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+
+<StackPane id="StackPaneHeader" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.jan_dev.clashroyaletracker.controller.component.HeaderController">
+    <stylesheets>
+        <URL value="@../styles/application.css" />
+    </stylesheets>
+    <children>
+        <Label id="headerTextAreaID" alignment="CENTER" text="ClashRoyale&#10;Tracker" textAlignment="CENTER"> <font>
+            <Font name="Dubai Regular" size="69.0" />
+        </font>
+            <StackPane.alignment>CENTER</StackPane.alignment> </Label>
+    </children>
+</StackPane>
