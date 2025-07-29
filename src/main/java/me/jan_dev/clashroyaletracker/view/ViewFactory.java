@@ -7,17 +7,17 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Factory zum Laden von FXML Views + zugehörigem Controller.
- * Wird hauptsächlich vom MainController genutzt, um dynamisch Komponenten einzuhängen.
+ * Factory zum Laden von FXML Views + zugehörigem Controller
+ * Wird hauptsächlich vom MainController genutzt, um dynamisch Komponenten einzuhängen
  *
  * Wichtig: FXML-Dateien müssen unter dem festen Pfad "/me/jan_dev/clashroyaletracker/fxml/" liegen.
- * Das ist aktuell hart verdrahtet. Könnte man irgendwann mal flexibilisieren.
+ * Das ist aktuell hart verdrahtet. Könnte man irgendwann mal flexibilisieren
  */
 public class ViewFactory {
 
     /**
-     * Lädt ein FXML-File inkl. Controller.
-     * Gibt ein ViewTuple zurück, das beides enthält (UI + Controller).
+     * Lädt ein FXML-File inkl. Controller
+     * Gibt ein ViewTuple zurück, das beides enthält (UI + Controller)
      *
      * @param fxmlPath Pfad zur FXML-Datei (relativ zum oben genannten Basisordner)
      * @param controllerClass Erwartete Controllerklasse
@@ -45,8 +45,8 @@ public class ViewFactory {
     }
 
     /**
-     * Kleines Containerobjekt, um View + Controller gemeinsam zurückzugeben.
-     * Wird immer beim Laden eines FXMLs erzeugt.
+     * Kleines Containerobjekt, um View + Controller gemeinsam zurückzugeben
+     * Wird immer beim Laden eines FXMLs erzeugt
      */
     public static class ViewTuple<T> {
         private final Parent view;

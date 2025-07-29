@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Lädt die application.properties und stellt sie als Singleton zur Verfügung.
+ * Lädt die application.properties und stellt sie als Singleton zur Verfügung
  */
 public class Config {
 

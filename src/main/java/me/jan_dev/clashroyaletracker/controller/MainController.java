@@ -40,7 +40,7 @@ public class MainController {
     }
 
     /**
-     * Callback, das von der Suchleiste aufgerufen wird.
+     * Callback, das von der Suchleiste aufgerufen wird
      * Holt die Player-Daten vom Backend und triggert dann das UI-Update
      *
      * @param playerName Gesuchter Spielername
@@ -63,7 +63,7 @@ public class MainController {
                 });
     }
     /**
-     * Aktualisiert das UI mit den geladenen Daten.
+     * Aktualisiert das UI mit den geladenen Daten
      * TODO: noch leer, hier später weitere Controller (z.B. WinLoss etc.) einhängen
      */
     private void updateUI(Player player) {
