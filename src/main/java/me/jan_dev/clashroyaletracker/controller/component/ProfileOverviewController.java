@@ -7,19 +7,25 @@ import me.jan_dev.clashroyaletracker.model.PlayerViewModel;
 
 public class ProfileOverviewController {
 
-    private PlayerViewModel playerViewModel;
-
     @FXML
     private Label nameLabel;
 
-    public void setPlayerViewModel(PlayerViewModel viewModel) {
-        this.playerViewModel = viewModel;
-        viewModel.playerProperty().addListener((obs, oldVal, newVal) -> updateUI(newVal));
+    private PlayerViewModel viewModel;
+
+    // Wird durch ControllerFactory aufgerufen
+    public ProfileOverviewController(PlayerViewModel viewModel) {
+        this.viewModel = viewModel;
     }
 
-    private void updateUI(Player player) {
-        if (player != null) {
-            nameLabel.setText(player.getName());
+    @FXML
+    public void initialize() {
+        System.out.println("[[DEBUG]]\tProfileOverviewController initialized");
+        viewModel.playerProperty().addListener((o, old, neu) -> render(neu));
+    }
+
+    private void render(Player p) {
+        if (p != null) {
+            nameLabel.setText(p.getName());
         }
     }
 }

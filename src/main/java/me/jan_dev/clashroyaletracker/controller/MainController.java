@@ -2,17 +2,14 @@ package me.jan_dev.clashroyaletracker.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import me.jan_dev.clashroyaletracker.controller.component.HeaderController;
+import me.jan_dev.clashroyaletracker.controller.component.ProfileOverviewController;
 import me.jan_dev.clashroyaletracker.controller.component.SearchBarController;
 import me.jan_dev.clashroyaletracker.model.PlayerViewModel;
 import me.jan_dev.clashroyaletracker.service.ClashRoyaleService;
 import me.jan_dev.clashroyaletracker.model.Player;
 import me.jan_dev.clashroyaletracker.view.ViewFactory;
-
-import java.io.IOException;
 
 /**
  * Einstiegspunkt für die GUI. Hängt dynamisch die Sub-Komponenten an (Header, SearchBar....)
@@ -33,15 +30,15 @@ public class MainController {
      */
     public void initialize() {
         // Header-Komponente laden und anhängen
-        var headerTuple = ViewFactory.load("component/Header.fxml", HeaderController.class);
-        mainVBox.getChildren().add(headerTuple.getView());
+        var header= ViewFactory.load("component/Header.fxml",HeaderController.class);
+        mainVBox.getChildren().add(header.getView());
 
         // Suchleiste laden und anhängen
-        var searchBarTuple = ViewFactory.load("component/SearchBar.fxml", SearchBarController.class);
-        mainVBox.getChildren().add(searchBarTuple.getView());
+        var searchBar= ViewFactory.load("component/SearchBar.fxml", SearchBarController.class);
+        mainVBox.getChildren().add(searchBar.getView());
 
         // Such-Callback setzen → Verknüpfung zwischen View und Logik
-        searchBarTuple.getController().setOnSearch(this::handleSearch);
+        searchBar.getController().setOnSearch(this::handleSearch);
 
         var profileOverviewTuple = ViewFactory.load("component/ProfileOverview.fxml", ProfileOverviewController.class);
         mainVBox.getChildren().add(profileOverviewTuple.getView());
@@ -64,7 +61,7 @@ public class MainController {
                     Platform.runLater(() -> updateUI(player));
                     System.out.println("[[DEBUG]]\tPlayername: " + player.getName() + "\nPTrophaeen: " + player.getTrophies() + "\n " +
                             "[[DEBUG]]\tBest Trophies " + player.getBestTrophies() + "\n " +
-                            "[[DEBUG]]\tArena" + player.getArena()+"\n " +
+                            "[[DEBUG]]\tArena" + player.getArena().getName()+"\n " +
                             "[[DEBUG]]\tLosses " + player.getLosses() +"\n " +
                             "[[DEBUG]]\tBattle count " + player.getBattleCount()
                     );
@@ -78,24 +75,11 @@ public class MainController {
                 });
     }
 
-    private void loadProfileOverview() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfileOverview.fxml"));
-        try {
-            Parent view = loader.load();
-            ProfileOverviewController controller = loader.getController();
-            controller.setPlayerViewModel(playerViewModel);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Aktualisiert das UI mit den geladenen Daten
-     * TODO: noch leer, hier später weitere Controller (z.B. WinLoss etc.) einhängen
      */
     private void updateUI(Player player) {
-        // Daten an verschiedene Sub-Komponenten weiterleiten
-        // aktuell noch leer evtl. MVP oder UI-Template vorbereiten
+        ViewFactory.getPlayerViewModel().setPlayer(player);
     }
     /**
      * Zeigt dem User eine Fehlermeldung an.
