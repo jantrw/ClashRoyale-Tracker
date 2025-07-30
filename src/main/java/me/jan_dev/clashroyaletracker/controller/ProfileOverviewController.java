@@ -1,4 +1,4 @@
-package me.jan_dev.clashroyaletracker.controller.component;
+package me.jan_dev.clashroyaletracker.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -23,3 +23,4 @@ public class ProfileOverviewController {
         }
     }
 }
+
