@@ -8,24 +8,22 @@ import me.jan_dev.clashroyaletracker.model.PlayerViewModel;
 import java.io.IOException;
 import java.net.URL;
 /**
- * Factory zum Laden von FXML Views + zugehörigem Controller
- * Wird hauptsächlich vom MainController genutzt, um dynamisch Komponenten einzuhängen
- *
- * Wichtig: FXML-Dateien müssen unter dem festen Pfad "/me/jan_dev/clashroyaletracker/fxml/" liegen.
- * Das ist aktuell hart verdrahtet. Könnte man irgendwann mal flexibilisieren
+  Factory zum Laden von FXML Views und zugehörigen Controllern
+  Hauptsächlich vom MainController genutzt um dynamische Komponenten einzuhängen
+  FXML-Dateien müssen unter /me/jan_dev/clashroyaletracker/fxml/ liegen
+  Dieser Pfad ist hart verdrahtet könnte in Zukunft flexibilisiert werden
  */
 
 public class ViewFactory {
     private static final PlayerViewModel SHARED_VM = new PlayerViewModel();
     private static final ControllerFactory FACTORY = new ControllerFactory(SHARED_VM);
     /**
-     * Lädt ein FXML-File inkl. Controller
-     * Gibt ein ViewTuple zurück, das beides enthält (UI + Controller)
-     *
-     * @param fxmlPath Pfad zur FXML-Datei (relativ zum oben genannten Basisordner)
-     * @param controllerClass Erwartete Controllerklasse
-     * @param <T> Typ des Controllers
-     * @return ViewTuple mit UI-Element (Parent) + Controller
+      Lädt ein FXML-File und seinen Controller
+      Gibt ein ViewTuple zurück das UI und Controller enthält
+      @param fxmlPath Relativer Pfad zur FXML-Datei
+      @param controllerClass Erwartete Controllerklasse
+      @param <T> Typ des Controllers
+      @return ViewTuple mit UI-Element und Controller
      */
 
     public static <T> ViewTuple<T> load(String fxmlPath, Class<T> controllerClass) {
@@ -33,24 +31,29 @@ public class ViewFactory {
             URL url = ViewFactory.class
                     .getResource("/me/jan_dev/clashroyaletracker/fxml/" + fxmlPath);
             FXMLLoader loader = new FXMLLoader(url);
-            //loader.setLocation(fxmlPath);
-            loader.setControllerFactory(FACTORY);
+            //loader.setLocation(fxmlPath); // Nicht benötigt da URL direkt gesetzt wird
+            loader.setControllerFactory(FACTORY); // Die geladene UI-Komponente
+            Parent view = loader.load(); // Der zugehörige Controller
 
-            Parent view = loader.load();
             T controller = loader.getController();
             return new ViewTuple<>(view, controller);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load FXML: " + fxmlPath, e);
         }
     }
+    /**
+    Gibt die gemeinsame PlayerViewModel-Instanz zurück
+    Wird von allen Controllern geteilt
+    @return Die gemeinsame PlayerViewModel-Instanz
+    */
 
     public static PlayerViewModel getPlayerViewModel() {
         return SHARED_VM;
     }
 
     /**
-     * Kleines Containerobjekt, um View + Controller gemeinsam zurückzugeben
-     * Wird immer beim Laden eines FXMLs erzeugt
+     Container für View und Controller
+     Wird beim Laden eines FXMLs erzeugt
      */
 
     public static class ViewTuple<T> {
