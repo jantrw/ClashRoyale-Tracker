@@ -61,7 +61,7 @@ public class MainController {
                     Platform.runLater(() -> updateUI(player));
                     System.out.println("[[DEBUG]]\tPlayername: " + player.getName() + "\nPTrophaeen: " + player.getTrophies() + "\n " +
                             "[[DEBUG]]\tBest Trophies " + player.getBestTrophies() + "\n " +
-                            "[[DEBUG]]\tArena" + player.getArena().getName()+"\n " +
+                            //"[[DEBUG]]\tArena" + player.getArena().getName()+"\n " +
                             "[[DEBUG]]\tLosses " + player.getLosses() +"\n " +
                             "[[DEBUG]]\tBattle count " + player.getBattleCount()
                     );

@@ -2,11 +2,14 @@ package me.jan_dev.clashroyaletracker.controller.component;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import me.jan_dev.clashroyaletracker.model.Player;
 import me.jan_dev.clashroyaletracker.model.PlayerViewModel;
 
 public class ProfileOverviewController {
 
+    @FXML
+    AnchorPane profileOverviewPane;
     @FXML
     private Label nameLabel;
 
@@ -25,7 +28,12 @@ public class ProfileOverviewController {
 
     private void render(Player p) {
         if (p != null) {
-            nameLabel.setText(p.getName());
+            if (p.getName() != null) {
+                System.out.println("Testtttttttt");
+                nameLabel.setText(p.getName());
+            } else {
+                nameLabel.setText("Spieler nicht gefunden");
+            }
         }
     }
 }

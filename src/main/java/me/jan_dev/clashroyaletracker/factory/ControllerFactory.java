@@ -25,7 +25,7 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
             Constructor<?> ctor = controllerClass.getConstructor(PlayerViewModel.class);
             return ctor.newInstance(playerViewModel);
         } catch (NoSuchMethodException e) {
-            // Kein solcher Konstruktor → Default-Konstruktor verwenden
+            // Kein solcher Konstruktor -> Default-Konstruktor verwenden
             try {
                 return controllerClass.getDeclaredConstructor().newInstance();
             } catch (Exception ex) {
