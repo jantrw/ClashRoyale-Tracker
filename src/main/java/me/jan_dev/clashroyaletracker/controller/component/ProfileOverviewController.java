@@ -12,6 +12,14 @@ public class ProfileOverviewController {
     AnchorPane profileOverviewPane;
     @FXML
     private Label nameLabel;
+    @FXML
+    private Label kuerzelLabel;
+    @FXML
+    private Label arenaNameLabel;
+    @FXML
+    private Label aktuelleTrophLabel;
+    @FXML
+    private Label besteTrophLabel;
 
     private PlayerViewModel viewModel;
 
@@ -29,8 +37,11 @@ public class ProfileOverviewController {
     private void render(Player p) {
         if (p != null) {
             if (p.getName() != null) {
-                System.out.println("Testtttttttt");
                 nameLabel.setText(p.getName());
+                kuerzelLabel.setText(p.getTag());
+                arenaNameLabel.setText(p.getArena().getName());
+                aktuelleTrophLabel.setText(String.valueOf(p.getTrophies()));
+                besteTrophLabel.setText(String.valueOf(p.getBestTrophies()));
             } else {
                 nameLabel.setText("Spieler nicht gefunden");
             }
