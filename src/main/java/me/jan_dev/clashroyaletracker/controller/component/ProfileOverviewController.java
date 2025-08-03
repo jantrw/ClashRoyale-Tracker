@@ -9,17 +9,9 @@ import me.jan_dev.clashroyaletracker.model.PlayerViewModel;
 public class ProfileOverviewController {
 
     @FXML
-    AnchorPane profileOverviewPane;
+    AnchorPane profileOverviewPanel;
     @FXML
-    private Label nameLabel;
-    @FXML
-    private Label kuerzelLabel;
-    @FXML
-    private Label arenaNameLabel;
-    @FXML
-    private Label aktuelleTrophLabel;
-    @FXML
-    private Label besteTrophLabel;
+    private Label besteTrophLabel, nameLabel,kuerzelLabel,arenaNameLabel,aktuelleTrophLabel,arenaNameExpl, akutelleTrophExpl,bestTrophExpl;
 
     private PlayerViewModel viewModel;
 
@@ -37,14 +29,24 @@ public class ProfileOverviewController {
     private void render(Player p) {
         if (p != null) {
             if (p.getName() != null) {
-                nameLabel.setText(p.getName());
-                kuerzelLabel.setText(p.getTag());
-                arenaNameLabel.setText(p.getArena().getName());
-                aktuelleTrophLabel.setText(String.valueOf(p.getTrophies()));
-                besteTrophLabel.setText(String.valueOf(p.getBestTrophies()));
+                setAll(p);
             } else {
                 nameLabel.setText("Spieler nicht gefunden");
             }
         }
+    }
+
+    // Setzt Spielerdaten, sodass sie im Frontend sichtbar sind
+    private void setAll(Player p) {
+        nameLabel.setText(p.getName());
+        kuerzelLabel.setText(p.getTag());
+        arenaNameExpl.setText("Arena");
+        arenaNameLabel.setText(p.getArena().getName());
+        akutelleTrophExpl.setText("Akt. Troph");
+        aktuelleTrophLabel.setText(String.valueOf(p.getTrophies()));
+        bestTrophExpl.setText("Best Troph");
+        besteTrophLabel.setText(String.valueOf(p.getBestTrophies()));
+
+        System.out.println("[[DEBUG]]\t Player stats was set");
     }
 }

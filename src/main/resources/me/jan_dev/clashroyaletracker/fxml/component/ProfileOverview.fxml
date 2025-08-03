@@ -12,8 +12,33 @@
         <URL value="@../styles/application.css" />
     </stylesheets>
 
-    <!-- this VBox will always be centered within the StackPane -->
     <VBox alignment="CENTER" spacing="8">
+        <Label fx:id="nameLabel" textFill="#bf1f1f">
+            <font><Font name="Dubai Regular" size="16" /></font>
+        </Label>
+        <Label fx:id="kuerzelLabel">
+            <font><Font name="Dubai Regular" size="16" /></font>
+        </Label>
+        <Label fx:id="arenaNameExpl">
+            <font><Font name="Dubai Regular" size="16" /></font>
+        </Label>
+        <Label fx:id="arenaNameLabel">
+            <font><Font name="Dubai Regular" size="16" /></font>
+        </Label>
+        <HBox alignment="CENTER" spacing="20">
+            <VBox alignment="CENTER_LEFT" spacing="4">
+                <Label fx:id="akutelleTrophExpl" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="108.0" textAlignment="CENTER"><font><Font name="Dubai Regular" size="16" /></font></Label>
+                <Label fx:id="aktuelleTrophLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="109.0" textAlignment="CENTER"><font><Font name="Dubai Regular" size="16" /></font></Label>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="4">
+                <Label fx:id="bestTrophExpl" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="104.0" textAlignment="CENTER"><font><Font name="Dubai Regular" size="16" /></font></Label>
+                <Label fx:id="besteTrophLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="104.0" textAlignment="CENTER"><font><Font name="Dubai Regular" size="16" /></font></Label>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <!---
+<VBox alignment="CENTER" spacing="8">
         <Label fx:id="nameLabel" text="Name" textFill="#bf1f1f">
             <font><Font name="Dubai Regular" size="16" /></font>
         </Label>
@@ -37,4 +62,5 @@
             </VBox>
         </HBox>
     </VBox>
+    -->
 </StackPane>
