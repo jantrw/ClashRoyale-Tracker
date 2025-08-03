@@ -1,7 +1,18 @@
-#MainVbox {
-    -fx-background-color: #393e46;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bangers&family=Luckiest+Guy&display=swap');
+
+.root {
+    -fx-font-family: 'Press Start 2P', monospace;
+    -fx-background-color: #222831;
+}
+#headerTextAreaID{
+    -fx-text-fill: #f2f2f2;
+    -fx-font-family: 'Press Start 2P', monospace;
 }
 
-#StackPaneHeader {
-    /*-fx-background-color: #393e46;*/
+#rootPane, #PlayerTagText, #StackPaneProfileOverview .label{
+    -fx-text-fill: #f2f2f2;
+    -fx-font-family: 'Press Start 2P', monospace;
+}
+#searchField {
+    -fx-font-family: 'Press Start 2P', monospace;
 }

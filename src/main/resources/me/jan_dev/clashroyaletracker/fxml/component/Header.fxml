@@ -11,7 +11,7 @@
     </stylesheets>
     <children>
         <Label id="headerTextAreaID" alignment="CENTER" text="ClashRoyale&#10;Tracker" textAlignment="CENTER"> <font>
-            <Font name="Dubai Regular" size="69.0" />
+            <Font name="Dubai Regular" size="40.0" />
         </font>
             <StackPane.alignment>CENTER</StackPane.alignment> </Label>
     </children>

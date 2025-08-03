@@ -12,7 +12,7 @@
         <URL value="@../styles/application.css" />
     </stylesheets>
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" text="Dein Player-Tag">
+        <Label fx:id="PlayerTagText" alignment="CENTER" contentDisplay="CENTER" text="Dein Player-Tag">
             <font>
                 <Font name="Dubai Regular" size="16.0" />
             </font>

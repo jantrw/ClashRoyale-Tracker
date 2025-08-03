@@ -9,6 +9,7 @@ import me.jan_dev.clashroyaletracker.factory.ControllerFactory;
 import me.jan_dev.clashroyaletracker.model.PlayerViewModel;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class App extends Application {
 
