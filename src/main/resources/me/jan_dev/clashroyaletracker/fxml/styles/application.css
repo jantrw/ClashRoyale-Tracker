@@ -2,17 +2,24 @@
 
 .root {
     -fx-font-family: 'Press Start 2P', monospace;
-    -fx-background-color: #222831;
+    -fx-background-color: #2D2E2E; /*#323031, #1D201F, #222831 #131515 #2B2C28 #312F2F #474647 #271F1D #2D2E2E 3B3C3CFF*/
 }
 #headerTextAreaID{
-    -fx-text-fill: #f2f2f2;
+    -fx-text-fill: #CDCDCD; /* #CDCDCD f2f2f2*/
     -fx-font-family: 'Press Start 2P', monospace;
 }
 
-#rootPane, #PlayerTagText, #StackPaneProfileOverview .label{
-    -fx-text-fill: #f2f2f2;
+#stackPaneProfileOverview {
+    -fx-background-color: #3B3C3CFF;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+}
+#rootPane, #PlayerTagText, #stackPaneProfileOverview .label{
+    -fx-text-fill: #CDCDCD;
     -fx-font-family: 'Press Start 2P', monospace;
 }
-#searchField {
+
+#searchField, #searchButton{
     -fx-font-family: 'Press Start 2P', monospace;
+    -fx-background-color: #CDCDCD;
 }
