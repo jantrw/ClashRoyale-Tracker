@@ -43,12 +43,6 @@ public class MainController {
         var profileOverviewTuple = ViewFactory.load("component/ProfileOverview.fxml", ProfileOverviewController.class);
         mainVBox.getChildren().add(profileOverviewTuple.getView());
 
-        var searchBar2= ViewFactory.load("component/SearchBar.fxml", SearchBarController.class);
-        mainVBox.getChildren().add(searchBar2.getView());
-
-        var searchBar3= ViewFactory.load("component/SearchBar.fxml", SearchBarController.class);
-        mainVBox.getChildren().add(searchBar3.getView());
-
         System.out.println("[[DEBUG]]\tMainController initialized");
     }
 
