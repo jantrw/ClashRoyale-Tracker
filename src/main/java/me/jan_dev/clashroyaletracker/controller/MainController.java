@@ -89,5 +89,17 @@ public class MainController {
         // GUI-Fehleranzeige (Dialog, Snackbar, etc.) kommt noch
     }
 
+    /**
+     *  WIrd von der App.java beim Beenden aufgerufen, um verwendete Ressourcen (wie Executor im ClashRoyaleService) freizugeben
+     */
+    public void close() {
+        // mögliche Implementation von Listener oder so
+        try {
+            clashRoyaleService.close();
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
 
 }
