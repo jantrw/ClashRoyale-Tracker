@@ -59,12 +59,6 @@ public class MainController {
                 .thenAccept(player -> {
                     // JavaFX-UI darf nur im FX-Thread aktualisiert werden
                     Platform.runLater(() -> updateUI(player));
-                    System.out.println("[[DEBUG]]\tPlayername: " + player.getName() + "\nPTrophaeen: " + player.getTrophies() + "\n " +
-                            "[[DEBUG]]\tBest Trophies " + player.getBestTrophies() + "\n " +
-                            //"[[DEBUG]]\tArena" + player.getArena().getName()+"\n " +
-                            "[[DEBUG]]\tLosses " + player.getLosses() +"\n " +
-                            "[[DEBUG]]\tBattle count " + player.getBattleCount()
-                    );
 
                 })
                 .exceptionally(ex -> {
@@ -81,6 +75,7 @@ public class MainController {
     private void updateUI(Player player) {
         ViewFactory.getPlayerViewModel().setPlayer(player);
     }
+
     /**
      * Zeigt dem User eine Fehlermeldung an.
      * TODO: aktuell noch leer – Dialog o.ä. wäre hier sinnvoll

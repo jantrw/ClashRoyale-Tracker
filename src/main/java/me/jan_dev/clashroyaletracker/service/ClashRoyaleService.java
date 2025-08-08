@@ -74,8 +74,8 @@ public class ClashRoyaleService implements AutoCloseable{
         return httpClient
                 .sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
+                    System.out.println("[[DEBUG]] mapping thread: " + Thread.currentThread().getName());
                     System.out.println("[[DEBUG]] Status Code: " + response.statusCode());
-                    System.out.println("[[DEBUG]] Body: '" + response.body() + "'");
                     return JsonUtil.fromJson(response.body(), Player.class);
                 });
     }
