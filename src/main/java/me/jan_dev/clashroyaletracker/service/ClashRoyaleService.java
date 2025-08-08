@@ -30,8 +30,7 @@ public class ClashRoyaleService implements AutoCloseable{
 
         // Bestimme Anzahl Worker-Threads -> sicherer Fallback
         int threads = Math.max(2, Runtime.getRuntime().availableProcessors());
-        // FixedThreadPool begrenzt gleichzeitige API-Aufrufe und vermeidet
-        // unbegrenzten Verbrauch von System-Threads/CPU.
+        // FixedThreadPool begrenzt gleichzeitige API-Aufrufe und erstellt den Thread-Pool
         this.executor = Executors.newFixedThreadPool(threads);
         this.httpClient = HttpClient.newBuilder()
                 .executor(executor)
@@ -73,11 +72,11 @@ public class ClashRoyaleService implements AutoCloseable{
 
         return httpClient
                 .sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(response -> {
+                .thenApplyAsync(response -> {
                     System.out.println("[[DEBUG]] mapping thread: " + Thread.currentThread().getName());
                     System.out.println("[[DEBUG]] Status Code: " + response.statusCode());
                     return JsonUtil.fromJson(response.body(), Player.class);
-                });
+                }, executor);
     }
 
     /**
