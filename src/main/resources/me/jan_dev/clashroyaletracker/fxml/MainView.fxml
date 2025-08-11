@@ -6,26 +6,37 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import java.net.URL?>
-<VBox fx:id="mainVBox"
-      alignment="TOP_CENTER"
-      prefHeight="819.0"
-      prefWidth="622.0"
-      spacing="20.0"
-      xmlns:fx="http://javafx.com/fxml/1"
-      xmlns="http://javafx.com/javafx/24.0.1"
-      fx:controller="me.jan_dev.clashroyaletracker.controller.MainController">
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.shape.Rectangle?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1"
+           xmlns="http://javafx.com/javafx/24.0.1"
+           fx:controller="me.jan_dev.clashroyaletracker.controller.MainController"
+           fx:id="root">
 
-    <stylesheets>
-        <URL value="@styles/application.css" />
-    </stylesheets>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
+    <!-- hauptinhalt hier werden via ViewFactory die subviews eingehängt -->
+    <VBox fx:id="mainVBox"
+          alignment="TOP_CENTER"
+          prefHeight="819.0"
+          prefWidth="622.0"
+          spacing="20.0">
+        <stylesheets>
+            <URL value="@styles/application.css"/>
+        </stylesheets>
 
-    <!--
-    <fx:include source="component/Header.fxml" />
-    <fx:include fx:id="searchBarInclude" source="component/SearchBar.fxml"/>
-    -->
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        </padding>
+    </VBox>
 
+    <!-- loading Overlay liegt oben im Stack und überdeckt mainVBox -->
+    <StackPane fx:id="loadingOverlay" visible="false" mouseTransparent="false">
+        <Rectangle width="200" height="200" fill="#000000" opacity="0.4"/>
+        <VBox alignment="CENTER" spacing="10.0">
+            <ProgressIndicator fx:id="progressIndicator" progress="-1.0"/>
+            <Label text="Lade Spieler…"/>
+        </VBox>
+    </StackPane>
 
-</VBox>
+</StackPane>
+

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bangers&family=Luckiest+Guy&display=swap');
 
-.root {
+.root, #mainVBox {
     -fx-font-family: 'Press Start 2P', monospace;
     -fx-background-color: #2D2E2E; /*#323031, #1D201F, #222831 #131515 #2B2C28 #312F2F #474647 #271F1D #2D2E2E 3B3C3CFF*/
 }

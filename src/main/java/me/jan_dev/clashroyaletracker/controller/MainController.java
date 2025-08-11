@@ -2,6 +2,8 @@ package me.jan_dev.clashroyaletracker.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import me.jan_dev.clashroyaletracker.controller.component.HeaderController;
 import me.jan_dev.clashroyaletracker.controller.component.ProfileOverviewController;
@@ -11,17 +13,27 @@ import me.jan_dev.clashroyaletracker.service.ClashRoyaleService;
 import me.jan_dev.clashroyaletracker.model.Player;
 import me.jan_dev.clashroyaletracker.view.ViewFactory;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Einstiegspunkt für die GUI. Hängt dynamisch die Sub-Komponenten an (Header, SearchBar....)
  * Hier läuft alles zusammen
  */
 public class MainController {
 
-    @FXML private VBox mainVBox; // Container für alle dynamischen Komponenten
+    @FXML
+    private VBox mainVBox; // Container für alle dynamischen Komponenten
+    @FXML
+    private StackPane loadingOverlay;
+    @FXML
+    private ProgressIndicator progressIndicator;
 
     private final ClashRoyaleService clashRoyaleService = new ClashRoyaleService();
 
     private final PlayerViewModel playerViewModel = new PlayerViewModel();
+
+    // referenz zum aktuellen Request
+    private volatile CompletableFuture<?> currentRequest;
 
 
     /**
@@ -29,12 +41,19 @@ public class MainController {
      * Initialisiert die View-Komponenten und registriert das Such-Callback
      */
     public void initialize() {
+        // Bind: Overlay sichtbar & managed an loadingProperty
+        loadingOverlay.visibleProperty().bind(playerViewModel.loadingProperty());
+        loadingOverlay.managedProperty().bind(playerViewModel.loadingProperty());
+
+        // disabled main content während loading
+        mainVBox.disableProperty().bind(playerViewModel.loadingProperty());
+
         // Header-Komponente laden und anhängen
-        var header= ViewFactory.load("component/Header.fxml",HeaderController.class);
+        var header = ViewFactory.load("component/Header.fxml", HeaderController.class);
         mainVBox.getChildren().add(header.getView());
 
         // Suchleiste laden und anhängen
-        var searchBar= ViewFactory.load("component/SearchBar.fxml", SearchBarController.class);
+        var searchBar = ViewFactory.load("component/SearchBar.fxml", SearchBarController.class);
         mainVBox.getChildren().add(searchBar.getView());
 
         // Such-Callback setzen → Verknüpfung zwischen View und Logik
@@ -55,17 +74,31 @@ public class MainController {
     private void handleSearch(String playerName) {
         // Async-Aufruf des Services der später zurückkommt (CompletableFuture)
         System.out.println("[[DEBUG]]\t" + playerName);
-        clashRoyaleService.fetchPlayerData(playerName)
-                .thenAccept(player -> {
-                    // JavaFX-UI darf nur im FX-Thread aktualisiert werden
-                    Platform.runLater(() -> updateUI(player));
 
-                })
-                .exceptionally(ex -> {
-                    // Fehler behandeln, ebenfalls im FX-Thread
-                    Platform.runLater(() -> showError(ex));
-                    ex.printStackTrace(); // sollte irgendwann mal ins Logging
-                    return null;
+        // vorherigen Request abbrechen
+        if (currentRequest != null && !currentRequest.isDone()) {
+            currentRequest.cancel(true);
+        }
+
+        // Loading auf true setzen
+        playerViewModel.setLoadingOnFx(true);
+
+        currentRequest = clashRoyaleService.fetchPlayerData(playerName)
+                .whenComplete((player, throwable) -> {
+                    // UI-Updates immer im FX-Thread
+                    Platform.runLater(() -> {
+                        // loading immer deaktivieren
+                        playerViewModel.setLoading(false);
+
+                        if (throwable != null) {
+                            // Fehler anzeigen
+                            showError(throwable);
+                            throwable.printStackTrace();
+                        } else {
+                            // Player in ViewModel setzen -> alle Controller reagieren
+                            ViewFactory.getPlayerViewModel().setPlayer(player);
+                        }
+                    });
                 });
     }
 
@@ -85,7 +118,7 @@ public class MainController {
     }
 
     /**
-     *  WIrd von der App.java beim Beenden aufgerufen, um verwendete Ressourcen (wie Executor im ClashRoyaleService) freizugeben
+     * WIrd von der App.java beim Beenden aufgerufen, um verwendete Ressourcen (wie Executor im ClashRoyaleService) freizugeben
      */
     public void close() {
         // mögliche Implementation von Listener oder so
